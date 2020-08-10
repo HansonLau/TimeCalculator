@@ -54,20 +54,34 @@ public class calculate extends JFrame{
 			int findHours = (LocalDateTime.now().getHour() + hours) % 12;
 			int findMinutes = (LocalDateTime.now().getMinute() + minutes);
 			
-			if(findMinutes > 60) {
+			while(findMinutes > 60) {
 				findHours++;
-				findMinutes %= 60;
+				findMinutes -= 60;
 			}
+			findHours %= 12;
+			findMinutes %= 60;
 			display("will be", findHours, findMinutes);
 		}
 		else {
 			int findHours = (LocalDateTime.now().getHour() - hours) % 12;
 			int findMinutes = (LocalDateTime.now().getMinute() - minutes);
 			
-			if(findMinutes < 0) {
-				findHours--;
-				findMinutes = 60 - Math.abs(findMinutes);
+			while(true) {
+				if(findMinutes < 0 && findMinutes < -60) {
+					findHours--;
+					findMinutes += 60;
+				}
+				else if(findMinutes<0){
+					findHours--;
+					break;
+				}
+				else {
+					break;
+				}
+				
 			}
+			System.out.println(Math.abs(findMinutes));
+			findMinutes = 60 - Math.abs(findMinutes);
 			display("was", findHours, findMinutes);
 		}
 		
@@ -75,7 +89,10 @@ public class calculate extends JFrame{
 	
 	private void display(String message, int hour, int min) {
 		
-		JOptionPane.showMessageDialog(null, "The time " + message + " " + hour + ":" + min);
+		if(min < 10)
+			JOptionPane.showMessageDialog(null, "The time " + message + " " + hour + ":0" + min);
+		else
+			JOptionPane.showMessageDialog(null, "The time " + message + " " + hour + ":" + min);
 		
 	}
 	
