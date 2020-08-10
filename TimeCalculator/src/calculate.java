@@ -80,7 +80,7 @@ public class calculate extends JFrame{
 				}
 				
 			}
-			System.out.println(Math.abs(findMinutes));
+
 			findMinutes = 60 - Math.abs(findMinutes);
 			display("was", findHours, findMinutes);
 		}
